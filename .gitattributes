@@ -1,0 +1,4 @@
+# Keep line endings as written (LF); never touch HFSS project files.
+* text=auto eol=lf
+*.aedt binary
+*.mp4 binary

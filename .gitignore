@@ -1,0 +1,20 @@
+node_modules/
+.hindsight/
+out/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+.hfss/
+hfss/data/
+__pycache__/
+
+# Rendered output; rebuild it with the scripts in promo/
+promo/*.mp4
+
+# Installer output (npm.cmd run dist)
+release/
+
+# The author's own designs and measured data, used by some offline tests; not published.
+hfss/hfss_agent/tests/fixtures/

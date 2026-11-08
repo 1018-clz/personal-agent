@@ -1,0 +1,50 @@
+# Builds the Windows installer: npm.cmd run dist  →  release\Personal Agent Setup <version>.exe
+#
+# The installer holds the app, the HFSS tool server's Python code and the install scripts. It does
+# not hold AEDT (the user's own), nor the Python environments: those are built on the user's machine
+# from the setup dialog (环境检查), into %LOCALAPPDATA%\personal-agent\runtime, because the HFSS one
+# must use the Python of the AEDT installed there.
+appId: com.personalagent.hfss
+productName: Personal Agent
+copyright: Copyright © 2026
+directories:
+  output: release
+  buildResources: build
+
+# Only what the app runs: electron-vite's output. Production dependencies are added by themselves.
+files:
+  - out/**/*
+  - package.json
+
+# Run as files, not from inside the asar archive: Python and PowerShell cannot read an archive.
+extraResources:
+  - from: hfss
+    to: hfss
+    filter:
+      - "**/*"
+      - "!data/**"
+      - "!**/__pycache__/**"
+      - "!hfss_agent/tests/**"
+      - "!**/*.log"
+  - from: scripts
+    to: scripts
+    filter:
+      - install-hfss.ps1
+      - install-hindsight.ps1
+      - hindsight-launcher.py
+
+win:
+  target:
+    - target: nsis
+      arch: x64
+
+nsis:
+  # Per user, into %LOCALAPPDATA%\Programs: no administrator rights needed, and the tool server's
+  # folder stays writable for Python's bytecode cache.
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: Personal Agent
+  # Settings, keys, sessions and simulation results stay when the app is uninstalled.
+  deleteAppDataOnUninstall: false

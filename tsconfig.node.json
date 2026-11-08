@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["electron.vite.config.ts", "vitest.config.ts", "vitest.live.config.ts", "src/main/**/*", "src/preload/**/*", "src/shared/**/*", "tests/**/*"],
+  "exclude": ["tests/renderer/**/*"]
+}

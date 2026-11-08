@@ -1,0 +1,517 @@
+/* The HFSS parts of the window: task panel, charts, evidence checks, setup checks. */
+
+/* Chart series: distinct in both themes; the first two strong enough for S11 and S21. */
+:root {
+  --series-0: #2f5fd0;
+  --series-1: #d9822b;
+  --series-2: #2c8a57;
+  --series-3: #b03a8c;
+  --series-4: #6a5acd;
+  --series-5: #8b6d1f;
+  --series-6: #1f8a99;
+  --series-7: #c0392b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --series-0: #7ba0f5;
+    --series-1: #f0a65a;
+    --series-2: #5fc48d;
+    --series-3: #e07cc2;
+    --series-4: #a99bf0;
+    --series-5: #d9b85c;
+    --series-6: #5ccbd9;
+    --series-7: #ef8a7c;
+  }
+}
+
+/* Simulation task panel */
+
+.task-panel {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 8px;
+  width: 320px;
+  min-height: 0;
+  padding: 12px 10px;
+  border-left: 1px solid var(--border);
+  background: var(--surface-muted);
+}
+
+.task-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.task-panel-head h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.task-counts,
+.task-toggle {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.task-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-compare-bar {
+  display: flex;
+  gap: 6px;
+}
+
+.task-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.task-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.task-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.task-group button,
+.task-actions button {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+.task-running {
+  border-left-color: var(--accent);
+}
+
+.task-done {
+  border-left-color: var(--good);
+}
+
+.task-failed {
+  border-left-color: var(--bad);
+}
+
+.task-card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.task-card-head strong {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag {
+  flex: none;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.mesh-fine,
+.mesh-verify {
+  background: var(--good-surface);
+  color: var(--good);
+}
+
+.state-running {
+  color: var(--accent);
+}
+
+.state-failed {
+  background: var(--bad-surface);
+  color: var(--bad);
+}
+
+.task-meta,
+.task-key {
+  overflow-wrap: anywhere;
+  color: var(--text-muted);
+}
+
+.task-key {
+  color: var(--text);
+}
+
+.task-converged {
+  color: var(--good);
+}
+
+.task-unconverged,
+.task-error {
+  overflow-wrap: anywhere;
+  color: var(--bad);
+}
+
+.task-pitfalls {
+  padding: 2px 6px;
+  border: 1px solid var(--warn-border);
+  border-radius: 4px;
+  background: var(--warn-surface);
+  cursor: help;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.task-actions code {
+  flex: 1;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Wide dialogs: job details, comparisons, setup checks */
+
+.modal-wide {
+  max-width: 880px;
+}
+
+.modal h3 {
+  margin: 14px 0 2px;
+  font-size: 14px;
+}
+
+.modal h2 small,
+.modal h3 small {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.pitfall-list {
+  margin: 4px 0;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid var(--warn-border);
+  border-radius: 6px;
+  background: var(--warn-surface);
+  font-size: 13px;
+}
+
+.mode-table {
+  width: auto;
+}
+
+/* Charts */
+
+.chart {
+  width: 100%;
+}
+
+.chart svg {
+  display: block;
+}
+
+.chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.chart-axis {
+  stroke: var(--text-muted);
+}
+
+.chart-tick,
+.chart-label {
+  fill: var(--text-muted);
+  font-size: 11px;
+}
+
+.chart-label {
+  font-size: 12px;
+}
+
+.chart-reference {
+  stroke: var(--text-muted);
+  stroke-dasharray: 4 4;
+}
+
+.chart-cursor {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+}
+
+.chart-line {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.chart-dot {
+  stroke: var(--surface);
+  stroke-width: 1;
+}
+
+.chart-empty {
+  padding: 16px;
+  color: var(--text-muted);
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  padding-left: 56px;
+  font-size: 12px;
+}
+
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart-legend i {
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.chart-legend b {
+  color: var(--text-muted);
+  font-weight: normal;
+}
+
+.chart-line.series-0 { stroke: var(--series-0); }
+.chart-line.series-1 { stroke: var(--series-1); }
+.chart-line.series-2 { stroke: var(--series-2); }
+.chart-line.series-3 { stroke: var(--series-3); }
+.chart-line.series-4 { stroke: var(--series-4); }
+.chart-line.series-5 { stroke: var(--series-5); }
+.chart-line.series-6 { stroke: var(--series-6); }
+.chart-line.series-7 { stroke: var(--series-7); }
+
+.chart-dot.series-0, .chart-legend i.series-0 { fill: var(--series-0); background: var(--series-0); }
+.chart-dot.series-1, .chart-legend i.series-1 { fill: var(--series-1); background: var(--series-1); }
+.chart-dot.series-2, .chart-legend i.series-2 { fill: var(--series-2); background: var(--series-2); }
+.chart-dot.series-3, .chart-legend i.series-3 { fill: var(--series-3); background: var(--series-3); }
+.chart-dot.series-4, .chart-legend i.series-4 { fill: var(--series-4); background: var(--series-4); }
+.chart-dot.series-5, .chart-legend i.series-5 { fill: var(--series-5); background: var(--series-5); }
+.chart-dot.series-6, .chart-legend i.series-6 { fill: var(--series-6); background: var(--series-6); }
+.chart-dot.series-7, .chart-legend i.series-7 { fill: var(--series-7); background: var(--series-7); }
+
+/* Setup checks */
+
+.setup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.setup-list li {
+  display: flex;
+  gap: 10px;
+}
+
+.setup-list li button {
+  margin-top: 6px;
+}
+
+.setup-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+.setup-ok .setup-icon {
+  background: var(--good-surface);
+  color: var(--good);
+}
+
+.setup-warn .setup-icon {
+  background: var(--warn-surface);
+  color: var(--text);
+}
+
+.setup-fail .setup-icon {
+  background: var(--bad-surface);
+  color: var(--bad);
+}
+
+.setup-detail {
+  overflow-wrap: anywhere;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.setup-fix {
+  font-size: 13px;
+}
+
+.setup-log-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.setup-log {
+  max-height: 220px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  border-radius: 6px;
+  background: var(--surface-muted);
+  font: 12px/1.5 Consolas, "Cascadia Code", monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.banner-warn {
+  background: var(--warn-surface);
+  color: var(--text);
+}
+
+/* A turn the app started: finished jobs handed to the model. */
+.bubble.auto {
+  align-self: flex-end;
+  max-width: 80%;
+  padding: 6px 12px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.bubble.auto summary {
+  cursor: pointer;
+}
+
+.bubble.auto div {
+  margin-top: 6px;
+  white-space: pre-wrap;
+}
+
+/* Evidence check under a reply */
+
+.evidence {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.evidence summary {
+  cursor: pointer;
+}
+
+.evidence ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.evidence-good {
+  background: var(--good-surface);
+}
+
+.evidence-weak {
+  border-color: var(--warn-border);
+  background: var(--warn-surface);
+}
+
+.evidence-bad {
+  border-color: var(--bad);
+  background: var(--bad-surface);
+}
+
+@media (max-width: 1100px) {
+  .task-panel {
+    width: 260px;
+  }
+}
+
+/* With the task panel open the top bar is narrower: keep labels whole, let the pills wrap as units. */
+.topbar h1,
+.topbar button,
+.pill {
+  white-space: nowrap;
+}
+
+.status-group {
+  flex-wrap: wrap;
+  row-gap: 2px;
+  min-width: 0;
+}
+
+/* Tables in dialogs: the comparison table and the mode list. */
+.modal table {
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+.modal th,
+.modal td {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.modal th {
+  background: var(--surface-muted);
+  font-weight: 600;
+}
+
+/* A narrow window: the buttons move to a second row instead of covering the status pills. */
+.topbar {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+.status-group {
+  flex: 1 1 260px;
+}

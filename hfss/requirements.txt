@@ -1,0 +1,9 @@
+# The HFSS tool server's dependencies. scripts/install-hfss.ps1 installs them into .hfss\env,
+# a venv built on the Python that ships with AEDT (CPython 3.10 in 2025 R2), which pyaedt supports.
+# Versions are the ones the original project verified on AEDT 2025 R2 (2026-10-28).
+pyaedt==1.9.0
+numpy==2.2.6
+matplotlib==3.10.9
+mcp==2.3.0
+# runner.py imports it directly; pyaedt also pulls it in.
+psutil

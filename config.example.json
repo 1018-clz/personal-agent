@@ -1,0 +1,28 @@
+{
+  "workspaceDir": "D:\\PersonalAgent\\workspace",
+  "deepseek": {
+    "model": "deepseek-flash",
+    "compactAtTokens": 200000
+  },
+  "sandbox": {
+    "enabled": true,
+    "network": false
+  },
+  "hindsight": {
+    "enabled": true,
+    "baseUrl": "http://localhost:8888",
+    "bankId": "personal",
+    "autoStart": true
+  },
+  "permissions": {
+    "allow": [
+      "run_command(git status *)",
+      "run_command(git log *)"
+    ],
+    "deny": [],
+    "autoAllowReadOnly": true
+  },
+  "hfss": {
+    "enabled": true
+  }
+}
